@@ -1,4 +1,3 @@
-import { useState } from "react";
 import MockAPI from "./Mockman";
 import {
 	Route,
@@ -13,7 +12,11 @@ import HomePage from "./Pages/HomePage";
 import ExplorePage from "./Pages/ExplorePage";
 import UserPage from "./Pages/UserPage";
 import ProfilePage from "./Pages/ProfilePage";
-import LayoutPage from "./Pages/LayoutPage";
+import LayoutPage from "./Pages/Layout/LayoutPage";
+import Footer from "./Components/Footer";
+import { Provider } from "react-redux";
+import Store from "./Redux/Store";
+import ErrorPage from "./Pages/ErrorPage";
 
 const router = createBrowserRouter(
 	createRoutesFromElements([
@@ -26,14 +29,18 @@ const router = createBrowserRouter(
 			<Route path="user" element={<UserPage />} />
 			<Route path="profile" element={<ProfilePage />} />
 		</Route>,
+		<Route path="*" element={<ErrorPage />} />,
 	])
 );
 
 function App() {
 	return (
-		<div className="App">
-			<RouterProvider router={router} />
-		</div>
+		<Provider store={Store}>
+			<div>
+				<RouterProvider router={router}></RouterProvider>
+				<Footer />
+			</div>
+		</Provider>
 	);
 }
 

@@ -1,20 +1,3 @@
-async function handleLogin() {
-	try {
-		const resp = await fetch("api/auth/login", {
-			method: "POST",
-			body: JSON.stringify({
-				username: "adarshbalika",
-				password: "adarshBalika123",
-			}),
-		});
-		const data = await resp.json();
-		console.log(data);
-		localStorage.setItem("socialEncodedToken", data.encodedToken);
-	} catch (err) {
-		console.log(err);
-	}
-}
-
 async function getUsers() {
 	try {
 		const resp = await fetch("/api/users");
