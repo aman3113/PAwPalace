@@ -38,7 +38,6 @@ function App() {
 		<Provider store={Store}>
 			<div>
 				<RouterProvider router={router}></RouterProvider>
-				<Footer />
 			</div>
 		</Provider>
 	);

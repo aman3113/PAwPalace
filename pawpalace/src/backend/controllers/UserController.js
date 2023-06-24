@@ -55,7 +55,8 @@ export const editUserHandler = function (schema, request) {
         }
       );
     }
-    const {userData} = JSON.parse(request.requestBody);
+    const { userData } = JSON.parse(request.requestBody);
+    console.log(userData && userData.username && userData.username !== user.username);
     if (userData && userData.username && userData.username !== user.username) {
       return new Response(
         404,
@@ -143,7 +144,7 @@ export const bookmarkPostHandler = function (schema, request) {
         { errors: ["This Post is already bookmarked"] }
       );
     }
-    user.bookmarks.push({...post});
+    user.bookmarks.push({ _id:post._id, username: post.username, content: post.content, createdAt: post.createdAt, updatedAt: post.updatedAt });
     // this.db.users.update(
     //   { _id: user._id },
     //   { ...user, updatedAt: formatDate() }
