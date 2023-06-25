@@ -15,33 +15,39 @@ const Sidebar = () => {
 		dispatch(getToken(null));
 	}
 	return (
-		<div className="flex md:h-full md:w-[10%] lg:w-[20%] lg:items-start justify-evenly fixed md:static md:flex-col md:justify-start gap-4  bottom-0 left-0 right-0 p-2 bg-blue-950 text-white bg-blend-luminosity">
-			<Link to="/home" className="flex items-center gap-2">
-				<AiFillHome size={25} />
-				<p className="text-lg hidden lg:block">Home</p>
-			</Link>
-			<Link to="/home/explore" className="flex items-center gap-2">
-				<AiFillCompass size={25} />
-				<p className="text-lg hidden lg:block">Explore</p>
-			</Link>
-			<div className="lg:hidden">
-				<IoMdAddCircle size={25} />
+		<div
+			className="fixed flex   bottom-0 left-0 right-0 p-2 bg-blue-950 text-white border-1 border-black shadow-sm shadow-gray-800 md:rounded-md
+		md:h-full md:w-[10%] md:static md:justify-center
+		 lg:w-[20%] z-10"
+		>
+			<div className="flex  w-full md:w-auto  items-center lg:items-start justify-between px-2  md:gap-6 md:flex-col md:justify-start">
+				<Link to="/home" className="flex items-center gap-2">
+					<AiFillHome size={25} />
+					<p className="text-lg hidden lg:block">Home</p>
+				</Link>
+				<Link to="/home/explore" className="flex items-center gap-2">
+					<AiFillCompass size={25} />
+					<p className="text-lg hidden lg:block">Explore</p>
+				</Link>
+				<div className="lg:hidden">
+					<IoMdAddCircle size={25} />
+				</div>
+				<Link className="flex items-center gap-2">
+					<MdPets size={25} />
+					<p className="text-lg hidden lg:block">Pets Gallery</p>
+				</Link>
+				<div
+					onClick={handleLogout}
+					className="flex items-center gap-2 cursor-pointer"
+				>
+					<FiLogOut size={25} />
+					<p className="text-lg hidden lg:block">Log Out</p>
+				</div>
+				<Link to="/home/profile" className="lg:flex items-center gap-2 hidden">
+					<FaUserAlt size={20} />
+					<p className="text-lg">Profile</p>
+				</Link>
 			</div>
-			<Link className="flex items-center gap-2">
-				<MdPets size={25} />
-				<p className="text-lg hidden lg:block">Pets Gallery</p>
-			</Link>
-			<div
-				onClick={handleLogout}
-				className="flex items-center gap-2 cursor-pointer"
-			>
-				<FiLogOut size={25} />
-				<p className="text-lg hidden lg:block">Log Out</p>
-			</div>
-			<Link to="/home/profile" className="lg:flex items-center gap-2 hidden">
-				<FaUserAlt size={20} />
-				<p className="text-lg">Profile</p>
-			</Link>
 		</div>
 	);
 };

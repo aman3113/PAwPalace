@@ -1,23 +1,4 @@
-async function getUsers() {
-	try {
-		const resp = await fetch("/api/users");
-		const data = await resp.json();
-		console.log(data);
-	} catch (err) {
-		console.log(err);
-	}
-}
-async function getPosts() {
-	try {
-		const resp = await fetch("/api/posts");
-		const data = await resp.json();
-		console.log(data);
-	} catch (err) {
-		console.log(err);
-	}
-}
-
-async function getPostsByUsername() {
+export async function getPostsByUsername() {
 	try {
 		const resp = await fetch("/api/posts/user/adarshbalika");
 		const data = await resp.json();
@@ -27,7 +8,7 @@ async function getPostsByUsername() {
 	}
 }
 
-async function handleUserEdit() {
+export async function handleUserEdit() {
 	try {
 		const encodedToken = localStorage.getItem("socialEncodedToken");
 		const resp = await fetch("/api/users/edit", {
@@ -58,7 +39,7 @@ async function handleUserEdit() {
 	}
 }
 
-async function handleCreatePost() {
+export async function handleCreatePost() {
 	try {
 		const encodedToken = localStorage.getItem("socialEncodedToken");
 		const resp = await fetch("/api/posts", {
@@ -80,7 +61,7 @@ async function handleCreatePost() {
 		console.log(err);
 	}
 }
-async function handleBookmarkPost() {
+export async function handleBookmarkPost() {
 	try {
 		const encodedToken = localStorage.getItem("socialEncodedToken");
 		const resp = await fetch(
@@ -99,21 +80,16 @@ async function handleBookmarkPost() {
 		console.log(err);
 	}
 }
-async function handleFollowUser() {
+export async function handleFollowUser(userId, encodedToken) {
 	try {
-		const encodedToken = localStorage.getItem("socialEncodedToken");
-		const resp = await fetch(
-			"/api/users/follow/89a7521a-865a-4a3f-ab4a-9729c4e98849",
-			{
-				method: "POST",
-				headers: {
-					authorization: encodedToken,
-				},
-				body: {},
-			}
-		);
-		const data = await resp.json();
-		console.log(data);
+		const resp = await fetch(`/api/users/follow/${userId}`, {
+			method: "POST",
+			headers: {
+				authorization: encodedToken,
+			},
+			body: {},
+		});
+		return resp;
 	} catch (err) {
 		console.log(err);
 	}

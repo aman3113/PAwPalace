@@ -33,7 +33,7 @@ export const posts = [
 	},
 
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1564694202779-bc908c327862.jpg",
 		tags: ["animal", "dog", "golden retriever"],
 		text: "adult Labrador retriever",
@@ -47,7 +47,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1510414696678-2415ad8474aa.jpg",
 		tags: ["snow", "ice", "mountain"],
 		text: "ice caves in the wild landscape photo of ice near ...",
@@ -61,7 +61,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1515376721779-7db6951da88d.jpg",
 		tags: ["dog", "pet", "canine"],
 		text: "@adventure.yuki frozen grass short-coated black do...",
@@ -75,7 +75,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1581804928342-4e3405e39c91.jpg",
 		tags: ["canine", "pet", "mammal"],
 		text: "Hiking with my dog in the woods. black labrador re...",
@@ -89,7 +89,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1574457547512-5b1646994eea.jpg",
 		tags: ["dog", "human", "animal"],
 		text: "Two boys hug their dogs in a leaf pile in the fall...",
@@ -103,7 +103,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1498534928137-473daa67f5c4.jpg",
 		tags: ["dog", "animal", "pet"],
 		text: "Bone salt and pepper schnauzer puppy",
@@ -117,7 +117,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1576707064479-3139e7e8aace.jpg",
 		tags: ["animal", "canine", "dog"],
 		text: "Sleeping dogs lie two dogs lying on black textile",
@@ -131,7 +131,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1500879747858-bb1845b61beb.jpg",
 		tags: ["dog", "animal", "golden retriever"],
 		text: "Dog in a forest at sunset dog in forest with sun r...",
@@ -145,7 +145,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1568572933382-74d440642117.jpg",
 		tags: ["dog", "animal", "husky"],
 		text: "black and white Husky",
@@ -159,7 +159,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1579562243430-4732bcb09d91.jpg",
 		tags: ["dog", "pet", "animal"],
 		text: "Milo durmiendo después de un largo día de jugar en...",
@@ -173,7 +173,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1568480541687-16c2f73eea4c.jpg",
 		tags: ["dog", "beach", "shoreline"],
 		text: "Gratitude short-coated tan dog on seashore",
@@ -187,7 +187,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1517884467367-ac2e21e46d0b.jpg",
 		tags: ["pet", "canine", "grey"],
 		text: "@adventure.yuki peekaboo adult short-coated black ...",
@@ -201,7 +201,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1548658146-f142deadf8f7.jpg",
 		tags: ["dog", "grey", "puppy"],
 		text: "front view of black and white puppy sitting on bro...",
@@ -215,7 +215,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1535008652995-e95986556e32.jpg",
 		tags: ["human", "ocean", "nature"],
 		text: "Random man walking with his dogs man and dogs on t...",
@@ -229,7 +229,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1580734075803-ac9cdb54fb03.jpg",
 		tags: ["dog", "canine", "animal"],
 		text: "Majestic looking dog on a lake white and brown sho...",
@@ -243,7 +243,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1558556249-076e42967a24.jpg",
 		tags: ["dog", "animal", "canine"],
 		text: "two puppies next to each other",
@@ -257,7 +257,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1556526588-a0bd9b5a42c3.jpg",
 		tags: ["canine", "dog", "pet"],
 		text: "two white dogs",
@@ -271,7 +271,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1575495679620-2ff225c75d5a.jpg",
 		tags: ["pet", "animal", "mammal"],
 		text: "A picture of my golden doodle, Yogi Bear white dog",
@@ -285,7 +285,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1549937334-e94f33e69787.jpg",
 		tags: ["dog", "pet", "mammal"],
 		text: "long-coated brown dog",
@@ -299,7 +299,7 @@ export const posts = [
 		updatedAt: formatDate(),
 	},
 	{
-		id: uuid(),
+		_id: uuid(),
 		image: "https://img.dummyapi.io/photo-1564849444446-f876dcef378e.jpg",
 		tags: ["plant", "mammal", "pet"],
 		text: "A feral cat short-fur gray and orange cat on green...",

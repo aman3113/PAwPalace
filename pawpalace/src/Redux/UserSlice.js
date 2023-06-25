@@ -4,18 +4,22 @@ const UserSlice = createSlice({
 	name: "user",
 	initialState: {
 		encodedToken: null,
-		user: null,
+		userDetail: null,
+		allUsers: [],
 	},
 	reducers: {
 		getToken: (state, action) => {
 			state.encodedToken = action.payload;
 		},
 		getUser: (state, action) => {
-			state.user = action.payload;
+			state.userDetail = action.payload;
+		},
+		getAllUsers: (state, action) => {
+			state.allUsers = action.payload;
 		},
 	},
 });
 
-export const { getToken, getUser } = UserSlice.actions;
+export const { getToken, getUser, getAllUsers } = UserSlice.actions;
 
 export default UserSlice;

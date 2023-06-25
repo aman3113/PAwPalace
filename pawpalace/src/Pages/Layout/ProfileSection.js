@@ -1,9 +1,14 @@
 import React from "react";
+import BasicInfo from "../../Components/BasicInfo";
+import SuggestedPeople from "../../Components/SuggestedPeople";
 
 const ProfileSection = () => {
 	return (
-		<div className="overflow-y-auto hidden sm:block sm:h-full border-2 border-green-500 w-[40%] md:w-[30%]">
-			<div className="border-2 border-yellow-600 h-[200vh]">ProfileSection</div>
+		<div className=" hidden sm:block sm:h-full  w-[40%] md:w-[30%]">
+			<div className="h-full p-2 flex flex-col items-center">
+				<BasicInfo />
+				<SuggestedPeople />
+			</div>
 		</div>
 	);
 };

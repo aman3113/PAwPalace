@@ -8,6 +8,7 @@ import loginImage from "../Images/loginpage.svg";
 import Header from "../Components/Header";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../Redux/UserSlice";
+import { useToast } from "@chakra-ui/react";
 
 const LoginPage = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -18,6 +19,7 @@ const LoginPage = () => {
 	const [error, setError] = useState(null);
 	const dispatch = useDispatch();
 	const token = useSelector((store) => store.user.encodedToken);
+	const toast = useToast();
 
 	function handleChange(e) {
 		const { name, value } = e.target;
@@ -38,8 +40,21 @@ const LoginPage = () => {
 			if (resp.ok) {
 				dispatch(getToken(data.encodedToken));
 				dispatch(getUser(data.foundUser));
+				toast({
+					title: "Account created.",
+					description: "We've created your account for you.",
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				});
 			} else {
 				setError(data.errors[0]);
+				toast({
+					title: "Login failed.",
+					status: "error",
+					duration: 3000,
+					isClosable: true,
+				});
 			}
 		} catch (err) {
 			console.log(err);

@@ -5,6 +5,8 @@ import {
 	createBrowserRouter,
 	createRoutesFromElements,
 } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react";
+
 import LandingPage from "./Pages/LandingPage";
 import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
@@ -13,7 +15,6 @@ import ExplorePage from "./Pages/ExplorePage";
 import UserPage from "./Pages/UserPage";
 import ProfilePage from "./Pages/ProfilePage";
 import LayoutPage from "./Pages/Layout/LayoutPage";
-import Footer from "./Components/Footer";
 import { Provider } from "react-redux";
 import Store from "./Redux/Store";
 import ErrorPage from "./Pages/ErrorPage";
@@ -36,9 +37,9 @@ const router = createBrowserRouter(
 function App() {
 	return (
 		<Provider store={Store}>
-			<div>
+			<ChakraProvider>
 				<RouterProvider router={router}></RouterProvider>
-			</div>
+			</ChakraProvider>
 		</Provider>
 	);
 }
