@@ -1,19 +1,56 @@
-import { Avatar } from "@chakra-ui/react";
-import React from "react";
-import { useSelector } from "react-redux";
+import { Avatar, useToast } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import { BiComment, BiBookmark } from "react-icons/bi";
-import { AiOutlineHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiTwotoneHeart } from "react-icons/ai";
 import { TbShare2 } from "react-icons/tb";
+import { getAllPosts } from "../Redux/PostSlice";
 
 const PostComponent = ({ postData }) => {
+	const [isLiked, setIsLiked] = useState(false);
 	const { _id, text, likes, username, createdAt } = postData;
-	const { allUsers } = useSelector((store) => store.user);
+	const { allUsers, encodedToken } = useSelector((store) => store.user);
 
 	const postOwner = allUsers?.find((user) => user.username === username);
 
 	const createdAtDate = new Date(postData.createdAt);
 	const minute = createdAtDate.getMinutes();
+
+	const dispatch = useDispatch();
+	const toast = useToast();
+
+	async function handlePostLike(path, postId) {
+		try {
+			const resp = await fetch(`/api/posts/${path}/${postId}`, {
+				method: "POST",
+				headers: {
+					authorization: encodedToken,
+				},
+				body: {},
+			});
+			const data = await resp.json();
+			if (resp.ok) {
+				setIsLiked((prev) => !prev);
+				dispatch(getAllPosts(data.posts));
+				toast({
+					title: `${path}d a post`,
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				});
+			} else {
+				toast({
+					title: `${data.errors}`,
+					status: "error",
+					duration: 3000,
+					isClosable: true,
+				});
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	}
 
 	return (
 		<div className="flex gap-2 p-3 border-[1px] border-black">
@@ -53,7 +90,22 @@ const PostComponent = ({ postData }) => {
 				<hr />
 				<div className="flex items center justify-around p-2">
 					<BiComment size={22} />
-					<AiOutlineHeart size={22} />
+					<span className="flex gap-2 items-center">
+						{isLiked ? (
+							<AiTwotoneHeart
+								size={22}
+								onClick={() => handlePostLike("dislike", _id)}
+								className="text-red-600"
+							/>
+						) : (
+							<AiOutlineHeart
+								onClick={() => handlePostLike("like", _id)}
+								size={22}
+							/>
+						)}
+
+						<span>{likes.likeCount}</span>
+					</span>
 					<BiBookmark size={22} />
 					<TbShare2 size={22} />
 				</div>

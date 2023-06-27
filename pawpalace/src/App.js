@@ -31,6 +31,7 @@ const router = createBrowserRouter(
 			<Route path="profile" element={<ProfilePage />} />
 		</Route>,
 		<Route path="*" element={<ErrorPage />} />,
+		<Route path="mockapi" element={<MockAPI />} />,
 	])
 );
 
