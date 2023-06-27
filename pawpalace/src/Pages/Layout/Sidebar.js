@@ -21,11 +21,11 @@ const Sidebar = () => {
 		 lg:w-[20%] z-10"
 		>
 			<div className="flex  w-full md:w-auto  items-center lg:items-start justify-between px-2  md:gap-6 md:flex-col md:justify-start">
-				<Link to="/home" className="flex items-center gap-2">
+				<Link to="/app/home" className="flex items-center gap-2">
 					<AiFillHome size={25} />
 					<p className="text-lg hidden lg:block">Home</p>
 				</Link>
-				<Link to="/home/explore" className="flex items-center gap-2">
+				<Link to="/app" className="flex items-center gap-2">
 					<AiFillCompass size={25} />
 					<p className="text-lg hidden lg:block">Explore</p>
 				</Link>
@@ -43,7 +43,7 @@ const Sidebar = () => {
 					<FiLogOut size={25} />
 					<p className="text-lg hidden lg:block">Log Out</p>
 				</div>
-				<Link to="/home/profile" className="lg:flex items-center gap-2 hidden">
+				<Link to="/app/profile" className="lg:flex items-center gap-2 hidden">
 					<FaUserAlt size={20} />
 					<p className="text-lg">Profile</p>
 				</Link>

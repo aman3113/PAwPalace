@@ -49,7 +49,7 @@ const SignUpPage = () => {
 	}
 
 	if (token) {
-		return <Navigate to="/home" />;
+		return <Navigate to="/app" />;
 	}
 
 	return (

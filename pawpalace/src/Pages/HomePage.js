@@ -1,32 +1,27 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllPosts } from "../Redux/PostSlice";
+import React from "react";
+import { useSelector } from "react-redux";
 import PostComponent from "../Components/PostComponent";
 
 const HomePage = () => {
-	const dispatch = useDispatch();
 	const { allPosts } = useSelector((store) => store.post);
+	const { userDetail } = useSelector((store) => store.user);
 
-	useEffect(() => {
-		getPosts();
-	}, []);
+	const postToShow = allPosts.filter(
+		(post) =>
+			userDetail.following?.some((user) => user.username === post.username) ||
+			post.username === userDetail.username
+	);
 
-	async function getPosts() {
-		try {
-			const resp = await fetch("/api/posts");
-			const data = await resp.json();
-			dispatch(getAllPosts(data.posts));
-		} catch (err) {
-			console.log(err);
-		}
-	}
 	return (
 		<div className="p-4">
-			<div className="flex flex-col gap-3">
-				{allPosts.map((post) => (
-					<PostComponent postData={post} />
+			<div className="flex flex-col">
+				{postToShow?.map((post) => (
+					<PostComponent key={post._id} postData={post} />
 				))}
 			</div>
+			<p className="text-gray-600 text-center p-4">
+				Follow Others to see their posts.
+			</p>
 		</div>
 	);
 };
