@@ -61,25 +61,7 @@ export async function handleCreatePost() {
 		console.log(err);
 	}
 }
-export async function handleBookmarkPost() {
-	try {
-		const encodedToken = localStorage.getItem("socialEncodedToken");
-		const resp = await fetch(
-			"/api/users/bookmark/c1564fff-4367-4a25-b753-18c5952b5ba2",
-			{
-				method: "POST",
-				headers: {
-					authorization: encodedToken,
-				},
-				body: {},
-			}
-		);
-		const data = await resp.json();
-		console.log(data);
-	} catch (err) {
-		console.log(err);
-	}
-}
+
 export async function handleFollowUser(userId, encodedToken) {
 	try {
 		const resp = await fetch(`/api/users/follow/${userId}`, {
@@ -92,5 +74,25 @@ export async function handleFollowUser(userId, encodedToken) {
 		return resp;
 	} catch (err) {
 		console.log(err);
+	}
+}
+
+export function timePostCreated(postDate) {
+	const currentDate = new Date();
+
+	const diffInMilliseconds = currentDate - new Date(postDate);
+	const diffInSeconds = Math.floor(diffInMilliseconds / 1000);
+	const diffInMinutes = Math.floor(diffInSeconds / 60);
+	const diffInHours = Math.floor(diffInMinutes / 60);
+	const diffInDays = Math.floor(diffInHours / 24);
+
+	if (diffInDays > 0) {
+		return `${diffInDays} day ago`;
+	} else if (diffInHours > 0) {
+		return `${diffInHours} hr ago`;
+	} else if (diffInMinutes > 0) {
+		return `${diffInMinutes} min ago`;
+	} else {
+		return `just now`;
 	}
 }

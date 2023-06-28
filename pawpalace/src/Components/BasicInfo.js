@@ -1,6 +1,7 @@
 import { Avatar, Image } from "@chakra-ui/react";
 import React from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const BasicInfo = () => {
 	const user = useSelector((store) => store.user.userDetail);
@@ -12,12 +13,14 @@ const BasicInfo = () => {
 					className="h-full w-full"
 					fallbackSrc="https://via.placeholder.com/150"
 				/>
-				<Avatar
-					size="lg"
-					name={user.firstName}
-					src={user.picture}
-					className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[-50%] m-0 p-0"
-				/>
+				<Link to={`/app/profile/${user._id}`}>
+					<Avatar
+						size="lg"
+						name={user.firstName}
+						src={user.picture}
+						className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[-50%] m-0 p-0"
+					/>
+				</Link>
 			</div>
 
 			<div className="flex flex-col items-center justify-center p-3 pt-7 bottom-[50px] ">

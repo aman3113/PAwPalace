@@ -27,8 +27,10 @@ const LayoutPage = () => {
 		return <Navigate to="/" />;
 	}
 	return (
-		<div className="border-2 border-blue-500 h-screen	">
-			<div className="h-[10%]">Header Paw Palace</div>
+		<div className="p-1 h-screen	">
+			<div className="h-[10%] border border-black shadow-md shadow-blue-400 rounded-lg">
+				Header Paw Palace
+			</div>
 			<div className="h-[90%] sm:flex justify-between p-2">
 				<Sidebar />
 				<div className="overflow-y-auto h-full w-full sm:w-[60%] lg:w-[50%]">

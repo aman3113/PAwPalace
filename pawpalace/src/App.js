@@ -12,7 +12,6 @@ import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import HomePage from "./Pages/HomePage";
 import ExplorePage from "./Pages/ExplorePage";
-import UserPage from "./Pages/UserPage";
 import ProfilePage from "./Pages/ProfilePage";
 import LayoutPage from "./Pages/Layout/LayoutPage";
 import { Provider } from "react-redux";
@@ -27,8 +26,7 @@ const router = createBrowserRouter(
 		<Route path="app" element={<LayoutPage />}>
 			<Route index={true} element={<ExplorePage />} />
 			<Route path="home" element={<HomePage />} />
-			<Route path="user" element={<UserPage />} />
-			<Route path="profile" element={<ProfilePage />} />
+			<Route path="profile/:userId" element={<ProfilePage />} />
 		</Route>,
 		<Route path="*" element={<ErrorPage />} />,
 		<Route path="mockapi" element={<MockAPI />} />,

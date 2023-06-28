@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleFollowUser } from "../Utils/api";
 import { getUser } from "../Redux/UserSlice";
+import { Link } from "react-router-dom";
 
 const SuggestedPeople = () => {
 	const { userDetail, encodedToken, allUsers } = useSelector(
@@ -51,7 +52,15 @@ const SuggestedPeople = () => {
 							key={user.id}
 						>
 							<div className="flex items-center gap-2">
-								<Avatar size="sm" name={user.firstName} src={user.picture} />
+								<Link to={`/app/profile/${user._id}`}>
+									<Avatar
+										size="sm"
+										name={user.firstName}
+										src={user.picture}
+										className="cursor-pointer"
+									/>
+								</Link>
+
 								<div>
 									<p className="text-sm font-semibold">
 										{user.firstName} {user.lastName}

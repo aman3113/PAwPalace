@@ -17,9 +17,13 @@ const UserSlice = createSlice({
 		getAllUsers: (state, action) => {
 			state.allUsers = action.payload;
 		},
+		handleUserBookmark: (state, action) => {
+			state.userDetail.bookmarks = action.payload;
+		},
 	},
 });
 
-export const { getToken, getUser, getAllUsers } = UserSlice.actions;
+export const { getToken, getUser, getAllUsers, handleUserBookmark } =
+	UserSlice.actions;
 
 export default UserSlice;

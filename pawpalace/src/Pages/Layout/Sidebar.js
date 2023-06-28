@@ -5,10 +5,11 @@ import { FiLogOut } from "react-icons/fi";
 import { MdPets } from "react-icons/md";
 import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../../Redux/UserSlice";
 
 const Sidebar = () => {
+	const { userDetail } = useSelector((store) => store.user);
 	const dispatch = useDispatch();
 	function handleLogout() {
 		dispatch(getUser(null));
@@ -43,7 +44,10 @@ const Sidebar = () => {
 					<FiLogOut size={25} />
 					<p className="text-lg hidden lg:block">Log Out</p>
 				</div>
-				<Link to="/app/profile" className="lg:flex items-center gap-2 hidden">
+				<Link
+					to={`/app/profile/${userDetail._id}`}
+					className="lg:flex items-center gap-2 hidden"
+				>
 					<FaUserAlt size={20} />
 					<p className="text-lg">Profile</p>
 				</Link>
