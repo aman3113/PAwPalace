@@ -12,11 +12,12 @@ import {
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import PostComponent from "../Components/PostComponent";
 
 const ProfilePage = () => {
 	const { userId } = useParams();
 	const [currUser, setCurrUser] = useState({});
-	const [openFollowModal, setOpenFollowModal] = useState(true);
+	const [openFollowModal, setOpenFollowModal] = useState(false);
 	const [followModalData, setFollowModalData] = useState([]);
 
 	const { userDetail } = useSelector((store) => store.user);
@@ -26,11 +27,16 @@ const ProfilePage = () => {
 		(post) => post.username === currUser?.username
 	);
 
-	const savedPosts = currUser?.bookmarks;
+	const savedPosts = allPosts?.filter((post) =>
+		userDetail.bookmarks?.some((item) => item._id === post._id)
+	);
+	const likedPosts = allPosts?.filter((post) =>
+		post?.likes?.likedBy?.some((item) => item.username === userDetail.username)
+	);
 
 	useEffect(() => {
 		getUserById(userId);
-	}, [userId]);
+	}, [userId, userDetail]);
 
 	async function getUserById(id) {
 		const resp = await fetch(`/api/users/${id}`);
@@ -47,15 +53,16 @@ const ProfilePage = () => {
 						className="h-full w-full"
 						// fallbackSrc="https://via.placeholder.com/150"
 					/>
-					<Avatar
-						size="2xl"
-						name={currUser?.firstName}
-						src={currUser?.picture}
-						className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[-50%] m-0 p-0"
-						bg="green.500"
-					/>
+					<div className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[50%]">
+						<Avatar
+							size="2xl"
+							name={currUser?.firstName}
+							src={currUser?.picture}
+							bg="green.500"
+						/>
+					</div>
 				</div>
-				<div className="text-center mt-[70px]">
+				<div className="text-center mt-[70px] cursor-pointer z-10">
 					{currUser.username === userDetail.username ? (
 						<p>Edit Profile</p>
 					) : userDetail.following?.some(
@@ -66,8 +73,8 @@ const ProfilePage = () => {
 						<button>Follow</button>
 					)}
 				</div>
-				<div className="flex justify-around">
-					<span>{userPosts?.length} posts</span>
+				<div className="flex justify-around z-20">
+					<div>{userPosts?.length} posts</div>
 					<div
 						onClick={() => {
 							console.log("clicked");
@@ -78,7 +85,16 @@ const ProfilePage = () => {
 					>
 						{currUser?.followers?.length} followers
 					</div>
-					<span>{currUser?.following?.length} following</span>
+					<div
+						onClick={() => {
+							console.log("clicked");
+							setOpenFollowModal(true);
+							setFollowModalData(currUser?.following);
+						}}
+						className="cursor-pointer"
+					>
+						{currUser?.following?.length} following
+					</div>
 				</div>
 				<div className="p-3">
 					<p>
@@ -89,44 +105,94 @@ const ProfilePage = () => {
 					<a href={currUser?.website}>{currUser?.website}</a>
 				</div>
 			</div>
-			{/* <Modal isOpen={openFollowModal} onClose={() => setOpenFollowModal(false)}>
+			<Modal
+				isOpen={openFollowModal}
+				onClose={() => setOpenFollowModal(false)}
+				scrollBehavior="inside"
+				isCentered
+			>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Modal Title</ModalHeader>
 					<ModalCloseButton />
-					<ModalBody></ModalBody>
+					<ModalBody>
+						{followModalData.length === 0 && <p>No Users to Show</p>}
+						<div className="flex flex-col gap-3">
+							{followModalData?.map((user) => {
+								return (
+									<div
+										className="flex items-center justify-between gap-2"
+										key={user.id}
+									>
+										<div className="flex items-center gap-2">
+											<Avatar
+												size="sm"
+												name={user.firstName}
+												src={user.picture}
+												className="cursor-pointer"
+											/>
 
-					<ModalFooter>
-						<Button
-							colorScheme="blue"
-							mr={3}
-							onClick={() => setOpenFollowModal(false)}
-						>
-							Close
-						</Button>
-						<Button variant="ghost">Secondary Action</Button>
-					</ModalFooter>
+											<div>
+												<p className="text-sm font-semibold">
+													{user.firstName} {user.lastName}
+												</p>
+												<p className="text-sm">{user.username}</p>
+											</div>
+										</div>
+									</div>
+								);
+							})}
+						</div>
+					</ModalBody>
 				</ModalContent>
-			</Modal> */}
+			</Modal>
 			<div>
-				<Tabs variant="soft-rounded" align="center" colorScheme="green">
-					<TabList>
-						<Tab>All</Tab>
-						<Tab>Liked</Tab>
-						<Tab>Saved</Tab>
-					</TabList>
-					<TabPanels>
-						<TabPanel>
-							<p>one!</p>
-						</TabPanel>
-						<TabPanel>
-							<p>two!</p>
-						</TabPanel>
-						<TabPanel>
-							<p>three!</p>
-						</TabPanel>
-					</TabPanels>
-				</Tabs>
+				{currUser?.username === userDetail.username ? (
+					<Tabs variant="soft-rounded" align="center" colorScheme="green">
+						<TabList>
+							<Tab>All</Tab>
+							<Tab>Liked</Tab>
+							<Tab>Saved</Tab>
+						</TabList>
+						<TabPanels align="left">
+							<TabPanel>
+								<div className="flex flex-col">
+									{userPosts?.map((post) => (
+										<PostComponent key={post._id} postData={post} />
+									))}
+								</div>
+							</TabPanel>
+							<TabPanel>
+								<div className="flex flex-col">
+									{likedPosts.length === 0 ? (
+										<p>No Posts in this Category. Let's Scroll Some.</p>
+									) : (
+										likedPosts?.map((post) => (
+											<PostComponent key={post._id} postData={post} />
+										))
+									)}
+								</div>
+							</TabPanel>
+							<TabPanel>
+								<div className="flex flex-col">
+									{savedPosts.length === 0 ? (
+										<p>You have not saved any post yet.</p>
+									) : (
+										savedPosts?.map((post) => (
+											<PostComponent key={post._id} postData={post} />
+										))
+									)}
+								</div>
+							</TabPanel>
+						</TabPanels>
+					</Tabs>
+				) : (
+					<div className="flex flex-col">
+						{userPosts.length === 0 && <p>You haven't posted anything yet.</p>}
+						{userPosts?.map((post) => (
+							<PostComponent key={post._id} postData={post} />
+						))}
+					</div>
+				)}
 			</div>
 		</div>
 	);

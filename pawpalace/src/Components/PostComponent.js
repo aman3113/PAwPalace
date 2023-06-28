@@ -17,7 +17,7 @@ const PostComponent = ({ postData }) => {
 	);
 	const postOwner = allUsers?.find((user) => user.username === username);
 	const isBookmarked = userDetail.bookmarks?.some((item) => item._id === _id);
-	const isLiked = likes.likedBy?.some(
+	const isLiked = likes?.likedBy?.some(
 		(item) => item.username === userDetail.username
 	);
 	const postTime = timePostCreated(createdAt);
@@ -151,7 +151,7 @@ const PostComponent = ({ postData }) => {
 							/>
 						)}
 
-						<span>{likes.likeCount}</span>
+						<span>{likes?.likeCount}</span>
 					</span>
 					{isBookmarked ? (
 						<BiSolidBookmark
