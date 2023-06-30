@@ -32,6 +32,13 @@ const SignUpPage = () => {
 	async function handleSignUP(e) {
 		e.preventDefault();
 		try {
+			if (
+				formData.firstName.trim() === "" ||
+				formData.username.trim() === "" ||
+				formData.password.trim() === ""
+			) {
+				return alert("Please fill all fields.");
+			}
 			const resp = await fetch("api/auth/signup", {
 				method: "POST",
 				body: JSON.stringify(formData),

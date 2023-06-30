@@ -1,8 +1,7 @@
 import { Avatar, useToast } from "@chakra-ui/react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { handleFollowUser } from "../Utils/api";
-import { getUser } from "../Redux/UserSlice";
+import { handleFollowBtn } from "../Utils/api";
 import { Link } from "react-router-dom";
 
 const SuggestedPeople = () => {
@@ -12,28 +11,6 @@ const SuggestedPeople = () => {
 
 	const dispatch = useDispatch();
 	const toast = useToast();
-
-	// follow function
-	async function handleFollowBtn(userId) {
-		const resp = await handleFollowUser(userId, encodedToken);
-		const data = await resp.json();
-		if (resp.ok) {
-			dispatch(getUser(data.user));
-			toast({
-				title: `Following ${data.followUser.username} `,
-				status: "success",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
-			toast({
-				description: `${data.errors} `,
-				status: "error",
-				duration: 3000,
-				isClosable: true,
-			});
-		}
-	}
 
 	const usersToFollow = allUsers?.filter(
 		(user) =>
@@ -70,7 +47,15 @@ const SuggestedPeople = () => {
 							</div>
 
 							<button
-								onClick={() => handleFollowBtn(user._id)}
+								onClick={() =>
+									handleFollowBtn(
+										user._id,
+										"follow",
+										dispatch,
+										toast,
+										encodedToken
+									)
+								}
 								className="bg-blue-700 text-white p-1 px-2 rounded-2xl"
 							>
 								Follow

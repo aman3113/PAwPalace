@@ -1,38 +1,76 @@
-import { Avatar, Button, Image } from "@chakra-ui/react";
+import { Avatar, Image, useToast } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
 import {
 	Modal,
 	ModalOverlay,
 	ModalContent,
-	ModalHeader,
-	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import PostComponent from "../Components/PostComponent";
+import { handleFollowBtn, handleUserEdit } from "../Utils/api";
 
 const ProfilePage = () => {
 	const { userId } = useParams();
+	const dispatch = useDispatch();
+	const toast = useToast();
 	const [currUser, setCurrUser] = useState({});
 	const [openFollowModal, setOpenFollowModal] = useState(false);
 	const [followModalData, setFollowModalData] = useState([]);
-
-	const { userDetail } = useSelector((store) => store.user);
+	const [openEditModal, setOpenEditModal] = useState(false);
+	const [formData, setFormData] = useState({
+		firstName: "",
+		lastName: "",
+		picture: "",
+		bgImg: "",
+		bio: "",
+		website: "",
+	});
+	const { userDetail, encodedToken } = useSelector((store) => store.user);
 	const { allPosts } = useSelector((store) => store.post);
 
 	const userPosts = allPosts.filter(
 		(post) => post.username === currUser?.username
 	);
-
 	const savedPosts = allPosts?.filter((post) =>
 		userDetail.bookmarks?.some((item) => item._id === post._id)
 	);
 	const likedPosts = allPosts?.filter((post) =>
 		post?.likes?.likedBy?.some((item) => item.username === userDetail.username)
 	);
+
+	function handleOpenEditModal() {
+		setOpenEditModal(true);
+		setFormData({
+			firstName: userDetail?.firstName,
+			lastName: userDetail?.lastName,
+			picture: userDetail?.picture,
+			bgImg: userDetail?.bgImg,
+			bio: userDetail?.bio,
+			website: userDetail?.website,
+		});
+	}
+
+	function handleFormOnChange(e) {
+		const { name, value } = e.target;
+		setFormData((prev) => ({
+			...prev,
+			[name]: value,
+		}));
+	}
+
+	function handleFormSubmit(e) {
+		e.preventDefault();
+		const userData = {
+			...currUser,
+			...formData,
+		};
+		handleUserEdit(userData, encodedToken, dispatch, toast);
+		setOpenEditModal(false);
+	}
 
 	useEffect(() => {
 		getUserById(userId);
@@ -51,7 +89,7 @@ const ProfilePage = () => {
 					<Image
 						src={currUser?.bgImg}
 						className="h-full w-full"
-						// fallbackSrc="https://via.placeholder.com/150"
+						fallbackSrc="https://via.placeholder.com/150"
 					/>
 					<div className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[50%]">
 						<Avatar
@@ -64,13 +102,37 @@ const ProfilePage = () => {
 				</div>
 				<div className="text-center mt-[70px] cursor-pointer z-10">
 					{currUser.username === userDetail.username ? (
-						<p>Edit Profile</p>
+						<p onClick={handleOpenEditModal}>Edit Profile</p>
 					) : userDetail.following?.some(
 							(item) => item.username === currUser.username
 					  ) ? (
-						<button>UnFollow</button>
+						<button
+							onClick={() =>
+								handleFollowBtn(
+									currUser?._id,
+									"unfollow",
+									dispatch,
+									toast,
+									encodedToken
+								)
+							}
+						>
+							UnFollow
+						</button>
 					) : (
-						<button>Follow</button>
+						<button
+							onClick={() =>
+								handleFollowBtn(
+									currUser?._id,
+									"follow",
+									dispatch,
+									toast,
+									encodedToken
+								)
+							}
+						>
+							Follow
+						</button>
 					)}
 				</div>
 				<div className="flex justify-around z-20">
@@ -102,9 +164,12 @@ const ProfilePage = () => {
 					</p>
 					<p>@{currUser?.username}</p>
 					<p>{currUser?.bio}</p>
-					<a href={currUser?.website}>{currUser?.website}</a>
+					<a href={currUser?.website} target="_blank" rel="noreferrer">
+						{currUser?.website}
+					</a>
 				</div>
 			</div>
+			{/* Follow Modal */}
 			<Modal
 				isOpen={openFollowModal}
 				onClose={() => setOpenFollowModal(false)}
@@ -145,6 +210,62 @@ const ProfilePage = () => {
 					</ModalBody>
 				</ModalContent>
 			</Modal>
+			{/* Edit Modal */}
+			<Modal
+				isOpen={openEditModal}
+				onClose={() => setOpenEditModal(false)}
+				scrollBehavior="inside"
+				isCentered
+			>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalCloseButton />
+					<ModalBody>
+						<form action="">
+							<input
+								type="file"
+								onChange={(e) =>
+									setFormData((prev) => ({
+										...prev,
+										picture: URL.createObjectURL(e.target.files[0]),
+									}))
+								}
+							/>
+							<input
+								type="text"
+								placeholder="firstName"
+								name="firstName"
+								value={formData.firstName}
+								onChange={handleFormOnChange}
+							/>
+							<input
+								type="text"
+								placeholder="lastName"
+								name="lastName"
+								value={formData.lastName}
+								onChange={handleFormOnChange}
+							/>
+
+							<input
+								type="text"
+								placeholder="Bio"
+								name="bio"
+								value={formData.bio}
+								onChange={handleFormOnChange}
+							/>
+
+							<input
+								type="url"
+								placeholder="website"
+								name="website"
+								value={formData.website}
+								onChange={handleFormOnChange}
+							/>
+							<button onClick={handleFormSubmit}>Save</button>
+						</form>
+					</ModalBody>
+				</ModalContent>
+			</Modal>
 			<div>
 				{currUser?.username === userDetail.username ? (
 					<Tabs variant="soft-rounded" align="center" colorScheme="green">
@@ -156,6 +277,9 @@ const ProfilePage = () => {
 						<TabPanels align="left">
 							<TabPanel>
 								<div className="flex flex-col">
+									{userPosts.length === 0 && (
+										<p>You haven't posted anything yet.</p>
+									)}
 									{userPosts?.map((post) => (
 										<PostComponent key={post._id} postData={post} />
 									))}

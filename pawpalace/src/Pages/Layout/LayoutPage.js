@@ -4,14 +4,15 @@ import { Navigate, Outlet } from "react-router-dom";
 import Sidebar from "./Sidebar";
 import ProfileSection from "./ProfileSection";
 import { getAllUsers } from "../../Redux/UserSlice";
+import MainHeader from "../../Components/MainHeader";
 
 const LayoutPage = () => {
-	const token = useSelector((store) => store.user.encodedToken);
+	const { encodedToken, userDetail } = useSelector((store) => store.user);
 	const dispatch = useDispatch();
 	// useEffect
 	useEffect(() => {
 		getUsers();
-	}, []);
+	}, [userDetail]);
 
 	async function getUsers() {
 		try {
@@ -23,14 +24,12 @@ const LayoutPage = () => {
 		}
 	}
 
-	if (!token) {
+	if (!encodedToken) {
 		return <Navigate to="/" />;
 	}
 	return (
 		<div className="p-1 h-screen	">
-			<div className="h-[10%] border border-black shadow-md shadow-blue-400 rounded-lg">
-				Header Paw Palace
-			</div>
+			<MainHeader />
 			<div className="h-[90%] sm:flex justify-between p-2">
 				<Sidebar />
 				<div className="overflow-y-auto h-full w-full sm:w-[60%] lg:w-[50%]">

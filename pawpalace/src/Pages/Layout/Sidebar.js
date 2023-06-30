@@ -7,6 +7,7 @@ import { FaUserAlt } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../../Redux/UserSlice";
+import { handlePostModal } from "../../Redux/PostSlice";
 
 const Sidebar = () => {
 	const { userDetail } = useSelector((store) => store.user);
@@ -30,9 +31,13 @@ const Sidebar = () => {
 					<AiFillCompass size={25} />
 					<p className="text-lg hidden lg:block">Explore</p>
 				</Link>
-				<div className="lg:hidden">
+				<Link
+					to="/app/home"
+					className="lg:hidden cursor-pointer"
+					onClick={() => dispatch(handlePostModal())}
+				>
 					<IoMdAddCircle size={25} />
-				</div>
+				</Link>
 				<Link className="flex items-center gap-2">
 					<MdPets size={25} />
 					<p className="text-lg hidden lg:block">Pets Gallery</p>
