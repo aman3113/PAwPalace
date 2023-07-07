@@ -38,7 +38,10 @@ const Sidebar = () => {
 				>
 					<IoMdAddCircle size={25} />
 				</Link>
-				<Link className="flex items-center gap-2">
+				<Link
+					className="flex items-center gap-2 cursor-pointer"
+					to="/app/gallery"
+				>
 					<MdPets size={25} />
 					<p className="text-lg hidden lg:block">Pets Gallery</p>
 				</Link>

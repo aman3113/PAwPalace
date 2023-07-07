@@ -95,7 +95,7 @@ const PostComponent = ({ postData }) => {
 
 	return (
 		<div className="flex gap-2 p-3 border-[1px] border-black">
-			<div className="w-[10%] flex justify-center pt-3">
+			<div className="w-[10%]  justify-center pt-3 inline-block">
 				<Link to={`/app/profile/${postOwner?._id}`} className="cursor-pointer">
 					<Avatar
 						size={avatarSize}

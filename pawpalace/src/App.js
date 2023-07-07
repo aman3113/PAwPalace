@@ -17,6 +17,7 @@ import LayoutPage from "./Pages/Layout/LayoutPage";
 import { Provider } from "react-redux";
 import Store from "./Redux/Store";
 import ErrorPage from "./Pages/ErrorPage";
+import ImageGallery from "./Pages/ImageGallery";
 
 const router = createBrowserRouter(
 	createRoutesFromElements([
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
 			<Route index={true} element={<ExplorePage />} />
 			<Route path="home" element={<HomePage />} />
 			<Route path="profile/:userId" element={<ProfilePage />} />
+			<Route path="gallery" element={<ImageGallery />} />
 		</Route>,
 		<Route path="*" element={<ErrorPage />} />,
 		<Route path="mockapi" element={<MockAPI />} />,

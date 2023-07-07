@@ -12,10 +12,12 @@ import {
 	Avatar,
 } from "@chakra-ui/react";
 import { IoMdAddCircle } from "react-icons/io";
+import { FaRegImage } from "react-icons/fa";
 
 import PostComponent from "../Components/PostComponent";
 import { handlePostModal } from "../Redux/PostSlice";
 import { handleCreatePost } from "../Utils/api";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
 	const { allPosts, openPostModal } = useSelector((store) => store.post);
@@ -64,8 +66,8 @@ const HomePage = () => {
 		dispatch(handlePostModal());
 	}
 
-	const postToShow = allPosts
-		.reverse()
+	const postToShow = [...allPosts]
+		?.reverse()
 		.filter(
 			(post) =>
 				userDetail.following?.some((user) => user.username === post.username) ||
@@ -74,22 +76,26 @@ const HomePage = () => {
 
 	return (
 		<div className="p-4">
-			<div
-				className="flex gap-3 items-center justify-around w-full border border-black p-2 cursor-pointer"
-				onClick={() => dispatch(handlePostModal())}
-			>
-				<Avatar
-					size="md"
-					name={userDetail.firstName}
-					src={userDetail.picture}
-				/>
-				<input
-					type="text"
-					placeholder="What's on your mind?"
-					className=" w-[70%] border-2 border-black p-2 px-3 rounded-full"
-					disabled
-				/>
-				<IoMdAddCircle size={25} />
+			<div className="flex gap-3 items-center justify-between w-full border border-black p-3 cursor-pointer mb-3">
+				<Link to={`/app/profile/${userDetail._id}`} className="w-[10%]">
+					<Avatar
+						size="md"
+						name={userDetail.firstName}
+						src={userDetail.picture}
+					/>
+				</Link>
+				<div
+					onClick={() => dispatch(handlePostModal())}
+					className="flex gap-3 w-[90%] items-center justify-between"
+				>
+					<input
+						type="text"
+						placeholder="What's on your mind?"
+						className=" w-[90%] border-2 border-black p-2 px-3 rounded-full"
+						disabled
+					/>
+					<IoMdAddCircle size={25} />
+				</div>
 			</div>
 			<div className="flex flex-col">
 				{postToShow?.map((post) => (
@@ -102,7 +108,7 @@ const HomePage = () => {
 			<Modal isOpen={openPostModal} onClose={() => dispatch(handlePostModal())}>
 				<ModalOverlay />
 				<ModalContent>
-					<ModalHeader>Modal Title</ModalHeader>
+					<ModalHeader>Post Something</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
 						<form action="" className="flex flex-col gap-1">
@@ -143,15 +149,20 @@ const HomePage = () => {
 					</ModalBody>
 
 					<ModalFooter>
-						<input
-							type="file"
-							onChange={(e) =>
-								setFormData((prev) => ({
-									...prev,
-									image: URL.createObjectURL(e.target.files[0]),
-								}))
-							}
-						/>
+						<label className="mr-auto cursor-pointer">
+							<FaRegImage size={25} />
+							<input
+								type="file"
+								className="hidden"
+								onChange={(e) =>
+									setFormData((prev) => ({
+										...prev,
+										image: URL.createObjectURL(e.target.files[0]),
+									}))
+								}
+							/>
+						</label>
+
 						<Button
 							colorScheme="blue"
 							mr={3}

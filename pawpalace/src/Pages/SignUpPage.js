@@ -8,6 +8,7 @@ import Header from "../Components/Header";
 import { BiUser } from "react-icons/bi";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { useToast } from "@chakra-ui/react";
 
 const SignUpPage = () => {
 	const [showPassword, setShowPassword] = useState(false);
@@ -19,6 +20,7 @@ const SignUpPage = () => {
 	});
 	const [error, setError] = useState(null);
 	const dispatch = useDispatch();
+	const toast = useToast();
 	const token = useSelector((store) => store.user.encodedToken);
 
 	function handleChange(e) {
@@ -47,8 +49,22 @@ const SignUpPage = () => {
 			if (resp.ok) {
 				dispatch(getToken(data.encodedToken));
 				dispatch(getUser(data.createdUser));
+				toast({
+					title: "Account created.",
+					description: "We've created your account for you.",
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				});
 			} else {
 				setError(data.errors[0]);
+				toast({
+					title: "Account created.",
+					description: "We've created your account for you.",
+					status: "success",
+					duration: 3000,
+					isClosable: true,
+				});
 			}
 		} catch (err) {
 			console.log(err);

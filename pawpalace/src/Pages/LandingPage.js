@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Header from "../Components/Header";
 import Footer from "../Components/Footer";
+import { imageGallery } from "../Utils/api";
 
 const LandingPage = () => {
 	return (
@@ -30,18 +31,25 @@ const LandingPage = () => {
 				</div>
 			</section>
 			<section>
-				<p className="text-2xl font-bold md:text-center ">Our Furry Friends</p>
+				<p className="text-3xl font-bold mb-3 text-center">Our Furry Friends</p>
+				<div className="columns-3 gap-2  w-[80%] sm:w-[70%] ml-auto mr-auto">
+					{imageGallery.map((image, idx) => (
+						<div key={idx}>
+							<img className="w-full mb-2" src={image} alt="" />
+						</div>
+					))}
+				</div>
 			</section>
-			<section className="text-center">
+			<section className="text-center flex flex-col items-center">
 				<p className="text-2xl font-bold">Ready to Join the Pack?</p>
-				<p className="p-3">
+				<p className="p-3 w-[80%]">
 					Don’t miss out on the barking mad fun at PawPalace, where making
 					paw-some connections has never been easier. Sign up now and embark on
 					a tail-wagging adventure!
 				</p>
 				<Link
 					to="/signup"
-					className="border border-black bg-blue-950 text-white p-1 px-2 rounded-md "
+					className="border border-black bg-blue-950 text-white p-1 px-3 rounded-md "
 				>
 					Sign Up Today
 				</Link>
