@@ -19,7 +19,6 @@ const MainHeader = () => {
 	const { userDetail, allUsers, encodedToken } = useSelector(
 		(store) => store.user
 	);
-	const { allPosts } = useSelector((store) => store.post);
 	const [openDrawer, setOpenDrawer] = useState(false);
 	const [input, setInput] = useState("");
 	const toast = useToast();
@@ -35,21 +34,12 @@ const MainHeader = () => {
 						user.username !== userDetail.username
 			  );
 
-	const searchedPosts =
-		searchText === ""
-			? []
-			: allPosts.filter(
-					(post) =>
-						post.username.toLowerCase().includes(searchText.toLowerCase()) &&
-						post.username !== userDetail.username
-			  );
-
 	return (
-		<div className="h-[10%] border border-black shadow-md shadow-blue-400 rounded-lg flex justify-between items-center p-1 px-3">
-			<img src={logo} alt="" className="w-[180px] mix-blend-multiply" />
+		<div className="h-[10%] shadow-md shadow-blue-400 rounded-lg flex justify-between items-center p-2">
+			<img src={logo} alt="" className="w-[170px] mix-blend-multiply" />
 			<div className="flex items-center gap-4">
 				<div
-					className="sm:border border-black rounded-md gap-2 flex items-center p-1 px-2 cursor-pointer"
+					className="sm:border-b-2 border-blue-800  gap-2 flex items-center p-1 px-2 cursor-pointer"
 					onClick={() => setOpenDrawer(true)}
 				>
 					<GoSearch size={25} />
@@ -60,11 +50,13 @@ const MainHeader = () => {
 						disabled
 					/>
 				</div>
-				<Avatar
-					size="sm"
-					name={userDetail.firstName}
-					src={userDetail.picture}
-				/>
+				<Link to={`/app/profile/${userDetail._id}`}>
+					<Avatar
+						size="sm"
+						name={userDetail.firstName}
+						src={userDetail.picture}
+					/>
+				</Link>
 			</div>
 			<Drawer
 				onClose={() => setOpenDrawer(false)}

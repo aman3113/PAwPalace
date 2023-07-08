@@ -76,84 +76,86 @@ const SignUpPage = () => {
 	}
 
 	return (
-		<div>
+		<div className="p-2">
 			<Header />
-			<section className="flex ">
-				<div className="hidden sm:block w-[50%] ">
-					<img src={loginImage} alt="login here" />
-				</div>
-				<div className=" w-full sm:w-[50%] flex flex-col items-center p-2">
-					<p className="text-2xl font-bold text-center">
-						Let's get you Started
-					</p>
-					{error && (
-						<p className="text-sm text-center text-red-600 my-2">{error}</p>
-					)}
-					<form
-						onSubmit={handleSignUP}
-						className="flex w-[80%]  flex-col gap-3 my-4"
-					>
-						<div className="flex gap-2">
-							<input
-								className=" border-black rounded-md border-2 p-2 px-3 w-[50%]"
-								type="text"
-								name="firstName"
-								value={formData.firstName}
-								onChange={handleChange}
-								placeholder="Your first name"
-							/>
-							<input
-								className=" border-black rounded-md border-2 p-2 px-3 w-[50%]"
-								type="text"
-								name="lastName"
-								value={formData.lastName}
-								onChange={handleChange}
-								placeholder="Your last name"
-							/>
-						</div>
-						<div className="flex gap-2 border-black rounded-md items-center border-2 p-2 px-3">
-							<BiUser />
-							<input
-								type="text"
-								name="username"
-								value={formData.username}
-								onChange={handleChange}
-								placeholder="Your username"
-								className="border-none outline-none"
-							/>
-						</div>
-						<div className="flex gap-2 border-black rounded-md items-center border-2 p-2 px-3">
-							<RiLockPasswordLine />
-							<input
-								type={showPassword ? "text" : "password"}
-								name="password"
-								value={formData.password}
-								onChange={handleChange}
-								placeholder="Enter your password"
-								className="outline-none"
-							/>
-							<div
-								className="ml-auto"
-								onClick={() => setShowPassword((prev) => !prev)}
-							>
-								{showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
-							</div>
-						</div>
-						<button
-							onClick={handleSignUP}
-							className="border-2  border-black rounded-md bg-blue-950 text-white p-2 px-3 w-full"
+			<div className="flex items-center justify-center min-h-[80vh]">
+				<section className="flex flex-col sm:flex-row items-center">
+					<div className="w-[50%] ">
+						<img src={loginImage} alt="login here" />
+					</div>
+					<div className=" w-full sm:w-[50%] flex flex-col items-center p-2">
+						<p className="text-2xl font-bold text-center">
+							Let's get you Started
+						</p>
+						{error && (
+							<p className="text-sm text-center text-red-600 my-2">{error}</p>
+						)}
+						<form
+							onSubmit={handleSignUP}
+							className="flex sm:w-[80%]  flex-col gap-3 my-4"
 						>
-							Sign Up
-						</button>
-					</form>
-					<p>
-						Don't have an account?
-						<Link className="text-blue-800 font-semibold ml-1" to="/login">
-							Log In
-						</Link>
-					</p>
-				</div>
-			</section>
+							<div className="flex gap-2">
+								<input
+									className=" border-black rounded-md border-2 p-2 px-3 w-[50%]"
+									type="text"
+									name="firstName"
+									value={formData.firstName}
+									onChange={handleChange}
+									placeholder="Your first name"
+								/>
+								<input
+									className=" border-black rounded-md border-2 p-2 px-3 w-[50%]"
+									type="text"
+									name="lastName"
+									value={formData.lastName}
+									onChange={handleChange}
+									placeholder="Your last name"
+								/>
+							</div>
+							<div className="flex gap-2 border-black rounded-md items-center border-2 p-2 px-3">
+								<BiUser />
+								<input
+									type="text"
+									name="username"
+									value={formData.username}
+									onChange={handleChange}
+									placeholder="Your username"
+									className="border-none outline-none"
+								/>
+							</div>
+							<div className="flex gap-2 border-black rounded-md items-center border-2 p-2 px-3">
+								<RiLockPasswordLine />
+								<input
+									type={showPassword ? "text" : "password"}
+									name="password"
+									value={formData.password}
+									onChange={handleChange}
+									placeholder="Enter your password"
+									className="outline-none"
+								/>
+								<div
+									className="ml-auto cursor-pointer"
+									onClick={() => setShowPassword((prev) => !prev)}
+								>
+									{showPassword ? <AiFillEyeInvisible /> : <AiFillEye />}
+								</div>
+							</div>
+							<button
+								onClick={handleSignUP}
+								className="border-2  border-black rounded-md bg-blue-950 text-white p-2 px-3 w-full"
+							>
+								Sign Up
+							</button>
+						</form>
+						<p>
+							Don't have an account?
+							<Link className="text-blue-800 font-semibold ml-1" to="/login">
+								Log In
+							</Link>
+						</p>
+					</div>
+				</section>
+			</div>
 		</div>
 	);
 };

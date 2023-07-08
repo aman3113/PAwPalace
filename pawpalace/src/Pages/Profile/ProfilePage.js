@@ -1,17 +1,13 @@
 import { Avatar, Image, useToast } from "@chakra-ui/react";
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import {
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalBody,
-	ModalCloseButton,
-} from "@chakra-ui/react";
+
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import PostComponent from "../Components/PostComponent";
-import { handleFollowBtn, handleUserEdit } from "../Utils/api";
+import PostComponent from "../../Components/PostComponent";
+import { handleFollowBtn } from "../../Utils/api";
+import FollowModal from "./FollowModal";
+import EditModal from "./EditModal";
 
 const ProfilePage = () => {
 	const { userId } = useParams();
@@ -54,24 +50,6 @@ const ProfilePage = () => {
 		});
 	}
 
-	function handleFormOnChange(e) {
-		const { name, value } = e.target;
-		setFormData((prev) => ({
-			...prev,
-			[name]: value,
-		}));
-	}
-
-	function handleFormSubmit(e) {
-		e.preventDefault();
-		const userData = {
-			...currUser,
-			...formData,
-		};
-		handleUserEdit(userData, encodedToken, dispatch, toast);
-		setOpenEditModal(false);
-	}
-
 	useEffect(() => {
 		getUserById(userId);
 	}, [userId, userDetail]);
@@ -83,13 +61,13 @@ const ProfilePage = () => {
 	}
 
 	return (
-		<div className="p-2">
-			<div className="w-full border border-black rounded-md">
+		<div className="px-2">
+			<div className="w-full border border-black rounded-md mb-2">
 				<div className=" relative w-full h-[15vh]">
 					<Image
 						src={currUser?.bgImg}
 						className="h-full w-full"
-						fallbackSrc="https://via.placeholder.com/150"
+						fallbackSrc="https://images.unsplash.com/photo-1528460033278-a6ba57020470?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjJ8fGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60"
 					/>
 					<div className="absolute left-[50%] bottom-0 translate-x-[-50%] translate-y-[50%]">
 						<Avatar
@@ -102,11 +80,17 @@ const ProfilePage = () => {
 				</div>
 				<div className="text-center mt-[70px] cursor-pointer z-10">
 					{currUser.username === userDetail.username ? (
-						<p onClick={handleOpenEditModal}>Edit Profile</p>
+						<p
+							className="bg-blue-500 text-white p-1 px-2 rounded-md inline-block"
+							onClick={handleOpenEditModal}
+						>
+							Edit Profile
+						</p>
 					) : userDetail.following?.some(
 							(item) => item.username === currUser.username
 					  ) ? (
 						<button
+							className="bg-blue-900 text-white p-1 px-2 rounded-md inline-block"
 							onClick={() =>
 								handleFollowBtn(
 									currUser?._id,
@@ -121,6 +105,7 @@ const ProfilePage = () => {
 						</button>
 					) : (
 						<button
+							className="bg-blue-700 text-white p-1 px-3 rounded-md inline-block"
 							onClick={() =>
 								handleFollowBtn(
 									currUser?._id,
@@ -135,11 +120,10 @@ const ProfilePage = () => {
 						</button>
 					)}
 				</div>
-				<div className="flex justify-around z-20">
+				<div className="flex justify-around z-20 font-semibold">
 					<div>{userPosts?.length} posts</div>
 					<div
 						onClick={() => {
-							console.log("clicked");
 							setOpenFollowModal(true);
 							setFollowModalData(currUser?.followers);
 						}}
@@ -149,7 +133,6 @@ const ProfilePage = () => {
 					</div>
 					<div
 						onClick={() => {
-							console.log("clicked");
 							setOpenFollowModal(true);
 							setFollowModalData(currUser?.following);
 						}}
@@ -159,113 +142,37 @@ const ProfilePage = () => {
 					</div>
 				</div>
 				<div className="p-3">
-					<p>
+					<p className="font-bold">
 						{currUser?.firstName} {currUser?.lastName}
 					</p>
-					<p>@{currUser?.username}</p>
-					<p>{currUser?.bio}</p>
-					<a href={currUser?.website} target="_blank" rel="noreferrer">
+					<p className="text-sm">@{currUser?.username}</p>
+					<p className="mt-2">{currUser?.bio}</p>
+					<a
+						href={currUser?.website}
+						className="text-blue-500"
+						target="_blank"
+						rel="noreferrer"
+					>
 						{currUser?.website}
 					</a>
 				</div>
 			</div>
 			{/* Follow Modal */}
-			<Modal
-				isOpen={openFollowModal}
-				onClose={() => setOpenFollowModal(false)}
-				scrollBehavior="inside"
-				isCentered
-			>
-				<ModalOverlay />
-				<ModalContent>
-					<ModalCloseButton />
-					<ModalBody>
-						{followModalData.length === 0 && <p>No Users to Show</p>}
-						<div className="flex flex-col gap-3">
-							{followModalData?.map((user) => {
-								return (
-									<div
-										className="flex items-center justify-between gap-2"
-										key={user.id}
-									>
-										<div className="flex items-center gap-2">
-											<Avatar
-												size="sm"
-												name={user.firstName}
-												src={user.picture}
-												className="cursor-pointer"
-											/>
+			<FollowModal
+				openFollowModal={openFollowModal}
+				setOpenFollowModal={setOpenFollowModal}
+				followModalData={followModalData}
+			/>
 
-											<div>
-												<p className="text-sm font-semibold">
-													{user.firstName} {user.lastName}
-												</p>
-												<p className="text-sm">{user.username}</p>
-											</div>
-										</div>
-									</div>
-								);
-							})}
-						</div>
-					</ModalBody>
-				</ModalContent>
-			</Modal>
 			{/* Edit Modal */}
-			<Modal
-				isOpen={openEditModal}
-				onClose={() => setOpenEditModal(false)}
-				scrollBehavior="inside"
-				isCentered
-			>
-				<ModalOverlay />
-				<ModalContent>
-					<ModalCloseButton />
-					<ModalBody>
-						<form action="">
-							<input
-								type="file"
-								onChange={(e) =>
-									setFormData((prev) => ({
-										...prev,
-										picture: URL.createObjectURL(e.target.files[0]),
-									}))
-								}
-							/>
-							<input
-								type="text"
-								placeholder="firstName"
-								name="firstName"
-								value={formData.firstName}
-								onChange={handleFormOnChange}
-							/>
-							<input
-								type="text"
-								placeholder="lastName"
-								name="lastName"
-								value={formData.lastName}
-								onChange={handleFormOnChange}
-							/>
+			<EditModal
+				openEditModal={openEditModal}
+				setOpenEditModal={setOpenEditModal}
+				formData={formData}
+				setFormData={setFormData}
+				currUser={currUser}
+			/>
 
-							<input
-								type="text"
-								placeholder="Bio"
-								name="bio"
-								value={formData.bio}
-								onChange={handleFormOnChange}
-							/>
-
-							<input
-								type="url"
-								placeholder="website"
-								name="website"
-								value={formData.website}
-								onChange={handleFormOnChange}
-							/>
-							<button onClick={handleFormSubmit}>Save</button>
-						</form>
-					</ModalBody>
-				</ModalContent>
-			</Modal>
 			<div>
 				{currUser?.username === userDetail.username ? (
 					<Tabs variant="soft-rounded" align="center" colorScheme="green">
@@ -278,7 +185,9 @@ const ProfilePage = () => {
 							<TabPanel>
 								<div className="flex flex-col">
 									{userPosts.length === 0 && (
-										<p>You haven't posted anything yet.</p>
+										<p className="text-center">
+											You haven't posted anything yet.
+										</p>
 									)}
 									{userPosts?.map((post) => (
 										<PostComponent key={post._id} postData={post} />
@@ -288,7 +197,9 @@ const ProfilePage = () => {
 							<TabPanel>
 								<div className="flex flex-col">
 									{likedPosts.length === 0 ? (
-										<p>No Posts in this Category. Let's Scroll Some.</p>
+										<p className="text-center">
+											No Posts in this Category. Let's Scroll Some.
+										</p>
 									) : (
 										likedPosts?.map((post) => (
 											<PostComponent key={post._id} postData={post} />
@@ -299,7 +210,9 @@ const ProfilePage = () => {
 							<TabPanel>
 								<div className="flex flex-col">
 									{savedPosts.length === 0 ? (
-										<p>You have not saved any post yet.</p>
+										<p className="text-center">
+											You have not saved any post yet.
+										</p>
 									) : (
 										savedPosts?.map((post) => (
 											<PostComponent key={post._id} postData={post} />
@@ -311,7 +224,9 @@ const ProfilePage = () => {
 					</Tabs>
 				) : (
 					<div className="flex flex-col">
-						{userPosts.length === 0 && <p>You haven't posted anything yet.</p>}
+						{userPosts.length === 0 && (
+							<p className="text-center">You haven't posted anything yet.</p>
+						)}
 						{userPosts?.map((post) => (
 							<PostComponent key={post._id} postData={post} />
 						))}

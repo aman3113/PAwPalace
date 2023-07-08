@@ -75,7 +75,7 @@ const HomePage = () => {
 		);
 
 	return (
-		<div className="p-4">
+		<div className="px-4">
 			<div className="flex gap-3 items-center justify-between w-full border border-black p-3 cursor-pointer mb-3">
 				<Link to={`/app/profile/${userDetail._id}`} className="w-[10%]">
 					<Avatar

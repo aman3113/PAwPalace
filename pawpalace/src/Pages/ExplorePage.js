@@ -24,7 +24,7 @@ const ExplorePage = () => {
 	}
 
 	return (
-		<div className="p-4 w-full relative">
+		<div className="px-4 w-full relative">
 			<div className="flex sticky top-0 backdrop-blur-md drop-shadow-md  mb-2 z-10">
 				<p
 					className={`cursor-pointer w-[50%] p-3 font-bold text-xl border border-black text-center ${

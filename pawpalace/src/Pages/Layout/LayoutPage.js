@@ -28,9 +28,9 @@ const LayoutPage = () => {
 		return <Navigate to="/" />;
 	}
 	return (
-		<div className="p-1 h-screen	">
+		<div className="p-1 h-screen">
 			<MainHeader />
-			<div className="h-[90%] sm:flex justify-between p-2">
+			<div className="h-[90%] sm:flex justify-between p-3">
 				<Sidebar />
 				<div className="overflow-y-auto h-full w-full sm:w-[60%] lg:w-[50%]">
 					<Outlet />

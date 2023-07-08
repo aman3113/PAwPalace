@@ -12,7 +12,7 @@ import LoginPage from "./Pages/LoginPage";
 import SignUpPage from "./Pages/SignUpPage";
 import HomePage from "./Pages/HomePage";
 import ExplorePage from "./Pages/ExplorePage";
-import ProfilePage from "./Pages/ProfilePage";
+import ProfilePage from "./Pages/Profile/ProfilePage";
 import LayoutPage from "./Pages/Layout/LayoutPage";
 import { Provider } from "react-redux";
 import Store from "./Redux/Store";
@@ -37,11 +37,13 @@ const router = createBrowserRouter(
 
 function App() {
 	return (
-		<Provider store={Store}>
-			<ChakraProvider>
-				<RouterProvider router={router}></RouterProvider>
-			</ChakraProvider>
-		</Provider>
+		<div className=" min-h-screen">
+			<Provider store={Store}>
+				<ChakraProvider>
+					<RouterProvider router={router}></RouterProvider>
+				</ChakraProvider>
+			</Provider>
+		</div>
 	);
 }
 

@@ -6,15 +6,15 @@ import { imageGallery } from "../Utils/api";
 
 const LandingPage = () => {
 	return (
-		<div className="flex flex-col gap-6 p-2 md:p-4 bg-orange-200">
+		<div className="flex flex-col p-2 md:p-4 ">
 			<Header />
-			<section className=" bg-blue-950 text-white p-[5%] py-[20%] md:py-[5%]">
-				<div className="flex flex-col items-center border-2  border-orange-600 p-4">
+			<section className=" bg-orange-200 mt-6 p-[5%] py-[20%] md:py-[5%]">
+				<div className="flex flex-col items-center border-2  border-blue-800 p-4">
 					<p className="text-[15vw] md:text-[10vw] font-bold">WoofHero!</p>
 					<p className="text-sm">Unleash the Fun with PawPalace</p>
 				</div>
 			</section>
-			<section>
+			<section className="bg-gray-200 p-5">
 				<p className="text-2xl md:text-3xl font-bold md:text-center">
 					A Community for Canine Admirers
 				</p>
@@ -30,8 +30,8 @@ const LandingPage = () => {
 					</p>
 				</div>
 			</section>
-			<section>
-				<p className="text-3xl font-bold mb-3 text-center">Our Furry Friends</p>
+			<section className="bg-orange-200 p-5">
+				<p className="text-3xl font-bold mb-5 text-center">Our Furry Friends</p>
 				<div className="columns-3 gap-2  w-[80%] sm:w-[70%] ml-auto mr-auto">
 					{imageGallery.map((image, idx) => (
 						<div key={idx}>
@@ -40,9 +40,9 @@ const LandingPage = () => {
 					))}
 				</div>
 			</section>
-			<section className="text-center flex flex-col items-center">
+			<section className="text-center flex flex-col items-center bg-gray-200 p-5">
 				<p className="text-2xl font-bold">Ready to Join the Pack?</p>
-				<p className="p-3 w-[80%]">
+				<p className="p-3 sm:w-[80%]">
 					Don’t miss out on the barking mad fun at PawPalace, where making
 					paw-some connections has never been easier. Sign up now and embark on
 					a tail-wagging adventure!

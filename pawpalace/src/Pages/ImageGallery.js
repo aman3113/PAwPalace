@@ -7,7 +7,7 @@ const ImageGallery = () => {
 
 	const collections = 1270951;
 	const apiKey = "KUW21yHYj-esIFciP0H2HalOMW0pVuLey85lAguR5yM";
-	const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=200&collections=${collections}`;
+	const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=30&collections=${collections}`;
 
 	async function getDogImages() {
 		const resp = await fetch(apiUrl);
@@ -15,9 +15,9 @@ const ImageGallery = () => {
 		setImageArr((prev) => [...prev, ...data]);
 	}
 
-	if (imageArr.length > 400) {
-		setImageArr((prev) => prev.slice(100));
-		setRemovedImg((prev) => [...prev, ...imageArr.slice(0, 100)]);
+	if (imageArr.length > 200) {
+		setImageArr((prev) => prev.slice(60));
+		setRemovedImg((prev) => [...prev, ...imageArr.slice(0, 25)]);
 	}
 
 	function removeDogImages() {
@@ -26,11 +26,13 @@ const ImageGallery = () => {
 		if (element) {
 			const { scrollTop, scrollHeight, clientHeight } = element;
 
-			if (scrollTop === 0) {
-				setImageArr((prev) => [...removedImg, ...prev]);
-				console.log(imageArr);
-				setRemovedImg([]);
-			}
+			// if (scrollTop === 0) {
+			// 	// console.log("removed", removedImg);
+			// 	// console.log("imageArr", imageArr);
+
+			// 	setImageArr((prev) => [...removedImg, ...prev].slice(0, 50));
+			// 	// setRemovedImg([]);
+			// }
 
 			if (scrollTop + clientHeight + 1 >= scrollHeight) {
 				getDogImages();
@@ -42,8 +44,7 @@ const ImageGallery = () => {
 		getDogImages();
 	}, []);
 
-	console.log("imageArr", imageArr);
-	console.log("removed", removedImg);
+	// console.log("imageArr", imageArr.length);
 
 	useEffect(() => {
 		const condition = scrollableRef.current;

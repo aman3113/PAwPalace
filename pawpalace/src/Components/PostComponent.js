@@ -107,10 +107,10 @@ const PostComponent = ({ postData }) => {
 			<div className="flex flex-col gap-2 w-[90%]">
 				<div className="flex flex-col">
 					<div className="flex items-center gap-2">
-						<p>
+						<p className="font-bold">
 							{postOwner?.firstName} {postOwner?.lastName}
 						</p>
-						<p>@{username}</p>
+						<p className="text-sm">@{username}</p>
 					</div>
 
 					<p className="text-sm">{postTime}</p>
@@ -128,7 +128,10 @@ const PostComponent = ({ postData }) => {
 				<div className="flex gap-2">
 					{postData.tags &&
 						postData.tags?.map((tag, idx) => (
-							<div className="text-sm" key={idx}>
+							<div
+								className="text-sm border bg-gray-300 px-2 rounded-md pb-[2px]"
+								key={idx}
+							>
 								{tag}
 							</div>
 						))}
