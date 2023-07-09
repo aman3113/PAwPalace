@@ -1,5 +1,5 @@
 import { getAllPosts } from "../Redux/PostSlice";
-import { getUser } from "../Redux/UserSlice";
+import { getUser, handleUserBookmark } from "../Redux/UserSlice";
 
 export async function getPostsByUsername() {
 	try {
@@ -10,6 +10,104 @@ export async function getPostsByUsername() {
 		console.log(err);
 	}
 }
+//Delete Post
+export async function handlePostDelete(postId, encodedToken, dispatch) {
+	try {
+		const resp = await fetch(`/api/posts/${postId}`, {
+			method: "DELETE",
+			headers: {
+				authorization: encodedToken,
+			},
+		});
+		const data = await resp.json();
+
+		if (resp.ok) {
+			dispatch(getAllPosts(data.posts));
+			console.log(data);
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+//Post Like
+export async function handlePostLike(
+	path,
+	postId,
+	encodedToken,
+	dispatch,
+	toast
+) {
+	try {
+		const resp = await fetch(`/api/posts/${path}/${postId}`, {
+			method: "POST",
+			headers: {
+				authorization: encodedToken,
+			},
+			body: {},
+		});
+		const data = await resp.json();
+		if (resp.ok) {
+			dispatch(getAllPosts(data.posts));
+			toast({
+				title: `${path}d a post`,
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} else {
+			toast({
+				title: `${data.errors}`,
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+//Post Bookmark
+export async function handlePostBookmark(
+	path,
+	postId,
+	encodedToken,
+	dispatch,
+	toast
+) {
+	try {
+		const resp = await fetch(`/api/users/${path}/${postId}`, {
+			method: "POST",
+			headers: {
+				authorization: encodedToken,
+			},
+			body: {},
+		});
+		const data = await resp.json();
+		if (resp.ok) {
+			dispatch(handleUserBookmark(data.bookmarks));
+			toast({
+				title: `post ${
+					path === "bookmark" ? "added to" : "removed from"
+				} bookmarks`,
+				status: "success",
+				duration: 3000,
+				isClosable: true,
+			});
+		} else {
+			toast({
+				title: `${data.errors}`,
+				status: "error",
+				duration: 3000,
+				isClosable: true,
+			});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
 //Follow unFollow Btn
 export async function handleFollowBtn(
 	userId,
@@ -83,6 +181,7 @@ export async function handleUserEdit(userData, encodedToken, dispatch, toast) {
 	}
 }
 
+// create Post
 export async function handleCreatePost(postDetails, encodedToken, dispatch) {
 	try {
 		const resp = await fetch("/api/posts", {
@@ -100,7 +199,48 @@ export async function handleCreatePost(postDetails, encodedToken, dispatch) {
 		console.log(err);
 	}
 }
+// Edit Post
+export async function handleEditPost(
+	id,
+	postDetails,
+	encodedToken,
+	dispatch,
+	toast
+) {
+	try {
+		const resp = await fetch(`/api/posts/edit/${id}`, {
+			method: "POST",
+			headers: {
+				authorization: encodedToken,
+			},
+			body: JSON.stringify({
+				postData: postDetails,
+			}),
+		});
+		const data = await resp.json();
 
+		if (resp.ok) {
+			dispatch(getAllPosts(data.posts));
+			toast({
+				title: `Post Edited`,
+				status: "success",
+				duration: 1000,
+				isClosable: true,
+			});
+		} else {
+			toast({
+				title: `${data.errors}`,
+				status: "error",
+				duration: 1000,
+				isClosable: true,
+			});
+		}
+	} catch (err) {
+		console.log(err);
+	}
+}
+
+//
 export function timePostCreated(postDate) {
 	const currentDate = new Date();
 

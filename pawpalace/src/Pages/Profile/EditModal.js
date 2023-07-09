@@ -9,6 +9,7 @@ import {
 	useToast,
 	ModalHeader,
 } from "@chakra-ui/react";
+import validator from "validator";
 import { BsImageFill } from "react-icons/bs";
 import { handleUserEdit } from "../../Utils/api";
 
@@ -33,12 +34,16 @@ const EditModal = ({
 
 	function handleFormSubmit(e) {
 		e.preventDefault();
-		const userData = {
-			...currUser,
-			...formData,
-		};
-		handleUserEdit(userData, encodedToken, dispatch, toast);
-		setOpenEditModal(false);
+		if (formData.website.includes("http")) {
+			const userData = {
+				...currUser,
+				...formData,
+			};
+			handleUserEdit(userData, encodedToken, dispatch, toast);
+			setOpenEditModal(false);
+		} else {
+			alert("not a valid url");
+		}
 	}
 	return (
 		<Modal

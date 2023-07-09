@@ -7,12 +7,14 @@ import {
 	ModalCloseButton,
 	Avatar,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 const FollowModal = ({
 	openFollowModal,
 	setOpenFollowModal,
 	followModalData,
 }) => {
+	const navigate = useNavigate();
 	return (
 		<Modal
 			isOpen={openFollowModal}
@@ -33,12 +35,19 @@ const FollowModal = ({
 									key={user.id}
 								>
 									<div className="flex items-center gap-2">
-										<Avatar
-											size="sm"
-											name={user.firstName}
-											src={user.picture}
-											className="cursor-pointer"
-										/>
+										<div
+											onClick={() => {
+												setOpenFollowModal(false);
+												navigate(`/app/profile/${user._id}`);
+											}}
+										>
+											<Avatar
+												size="sm"
+												name={user.firstName}
+												src={user.picture}
+												className="cursor-pointer"
+											/>
+										</div>
 
 										<div>
 											<p className="text-sm font-semibold">
