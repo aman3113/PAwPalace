@@ -7,7 +7,7 @@ const BasicInfo = () => {
 	const user = useSelector((store) => store.user.userDetail);
 	return (
 		<div className="border-1 border-black shadow-sm shadow-gray-800   w-[90%] lg:w-[80%] rounded-xl h-[30%] overflow-hidden">
-			<div className=" relative w-full h-[10vh]">
+			<div className=" relative w-full h-[12vh]">
 				<Image
 					src={user.bgImg}
 					className="h-full w-full"

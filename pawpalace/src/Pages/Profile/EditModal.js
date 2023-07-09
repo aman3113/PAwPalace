@@ -9,9 +9,8 @@ import {
 	useToast,
 	ModalHeader,
 } from "@chakra-ui/react";
-import validator from "validator";
 import { BsImageFill } from "react-icons/bs";
-import { handleUserEdit } from "../../Utils/api";
+import { avatarArr, backgroundArr, handleUserEdit } from "../../Utils/api";
 
 const EditModal = ({
 	formData,
@@ -51,30 +50,96 @@ const EditModal = ({
 			onClose={() => setOpenEditModal(false)}
 			scrollBehavior="inside"
 			isCentered
+			size="xl"
 		>
 			<ModalOverlay />
-			<ModalContent>
+			<ModalContent margin={2}>
 				<ModalHeader>Fill your Details</ModalHeader>
 
 				<ModalCloseButton />
 				<ModalBody>
 					<form className="flex flex-col gap-2">
-						<label>
-							<p className="flex items-center gap-2 cursor-pointer">
-								<BsImageFill size={25} />{" "}
-								<span className="text-sm">Choose Profile Picture</span>
-							</p>
-							<input
-								type="file"
-								onChange={(e) =>
-									setFormData((prev) => ({
-										...prev,
-										picture: URL.createObjectURL(e.target.files[0]),
-									}))
-								}
-								className="hidden"
-							/>
-						</label>
+						<div className="mt-4 border p-2">
+							<label>
+								<p className="flex items-center gap-2 cursor-pointer">
+									<span className="font-semibold">Choose Profile: </span>
+									<BsImageFill size={25} />
+									{formData.picture && (
+										<img className="w-[30px]" src={formData.picture} alt="" />
+									)}
+								</p>
+								<input
+									type="file"
+									onChange={(e) =>
+										setFormData((prev) => ({
+											...prev,
+											picture: URL.createObjectURL(e.target.files[0]),
+										}))
+									}
+									className="hidden"
+								/>
+							</label>
+							<p>or</p>
+							<div className="flex flex-col gap-2 items-start md:flex-row  md:items-center">
+								<p className="font-semibold"> Avatar:</p>
+								<div className="p-3 shadow-sm shadow-blue-500 flex flex-wrap gap-2 rounded-md justify-center">
+									{avatarArr.map((avatar) => (
+										<img
+											src={avatar}
+											alt=""
+											className="w-[50px] h-[50px] rounded-[50%] cursor-pointer outline"
+											onClick={(e) =>
+												setFormData((prev) => ({
+													...prev,
+													picture: avatar,
+												}))
+											}
+										/>
+									))}
+								</div>
+							</div>
+						</div>
+
+						<div className="mt-4 mb-8 border p-2">
+							<label className="mt-4">
+								<p className="flex items-center gap-2 cursor-pointer">
+									<span className="font-semibold">Choose Background: </span>
+									<BsImageFill size={25} />
+									{formData.bgImg && (
+										<img className="w-[30px]" src={formData.bgImg} alt="" />
+									)}
+								</p>
+								<input
+									type="file"
+									onChange={(e) =>
+										setFormData((prev) => ({
+											...prev,
+											bgImg: URL.createObjectURL(e.target.files[0]),
+										}))
+									}
+									className="hidden"
+								/>
+							</label>
+							<p>or</p>
+							<div className="flex flex-col gap-2 items-start md:flex-row  md:items-center">
+								<p className="font-semibold">Wallpaper:</p>
+								<div className="p-3 shadow-sm shadow-blue-500 flex flex-wrap gap-2 rounded-md justify-center">
+									{backgroundArr.map((avatar) => (
+										<img
+											src={avatar}
+											alt=""
+											className="w-[50px] h-[50px] rounded-[50%] cursor-pointer outline"
+											onClick={(e) =>
+												setFormData((prev) => ({
+													...prev,
+													bgImg: avatar,
+												}))
+											}
+										/>
+									))}
+								</div>
+							</div>
+						</div>
 
 						<input
 							type="text"

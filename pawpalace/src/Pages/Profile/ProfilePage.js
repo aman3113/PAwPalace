@@ -63,7 +63,7 @@ const ProfilePage = () => {
 	return (
 		<div className="px-2">
 			<div className="w-full border border-black rounded-md mb-2">
-				<div className=" relative w-full h-[15vh]">
+				<div className=" relative w-full h-[20vh]">
 					<Image
 						src={currUser?.bgImg}
 						className="h-full w-full"

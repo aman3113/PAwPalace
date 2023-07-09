@@ -272,3 +272,21 @@ export const imageGallery = [
 	"https://images.unsplash.com/photo-1583336663277-620dc1996580?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDh8fERvZ3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60",
 	"https://images.unsplash.com/photo-1586671267731-da2cf3ceeb80?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fERvZ3N8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=600&q=60",
 ];
+
+export const avatarArr = [
+	"https://img.freepik.com/free-vector/businessman-character-avatar-isolated_24877-60111.jpg?size=626&ext=jpg&ga=GA1.2.1969286105.1688930755&semt=ais",
+	"https://img.freepik.com/free-psd/3d-illustration-person-with-sunglasses_23-2149436188.jpg?size=626&ext=jpg&ga=GA1.2.1969286105.1688930755&semt=ais",
+	"https://img.freepik.com/premium-vector/young-smiling-man-avatar-man-with-brown-beard-mustache-hair-wearing-yellow-sweater-sweatshirt-3d-vector-people-character-illustration-cartoon-minimal-style_365941-860.jpg?size=626&ext=jpg&ga=GA1.2.1969286105.1688930755&semt=ais",
+	"https://img.freepik.com/premium-vector/people-saving-money_24908-51569.jpg?size=626&ext=jpg&ga=GA1.1.1969286105.1688930755&semt=ais",
+	"https://img.freepik.com/premium-vector/3d-man-avatar-happy-smiling-face-icon-young-businessman-student-freelancer_313242-1219.jpg?size=626&ext=jpg&ga=GA1.1.1969286105.1688930755&semt=ais",
+	"https://img.freepik.com/premium-vector/young-man-avatar-character_24877-9475.jpg?size=626&ext=jpg&ga=GA1.1.1969286105.1688930755&semt=ais",
+];
+
+export const backgroundArr = [
+	"https://plus.unsplash.com/premium_photo-1667486075273-5d3bf432550b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+	"https://images.unsplash.com/photo-1524312966005-030e396636fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTR8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+	"https://images.unsplash.com/photo-1487266659293-c4762f375955?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+	"https://images.unsplash.com/photo-1605106250963-ffda6d2a4b32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTZ8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+	"https://plus.unsplash.com/premium_photo-1661963744231-0a9b4bd911ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjF8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+	"https://plus.unsplash.com/premium_photo-1681426537291-0b26870960d9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NzN8fGNvbG9yJTIwZ3JhZGllbnQlMjBiYWNrZ3JvdW5kfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60",
+];
