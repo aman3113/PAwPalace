@@ -33,15 +33,24 @@ const EditModal = ({
 
 	function handleFormSubmit(e) {
 		e.preventDefault();
-		if (formData.website.includes("http")) {
+		if (formData.website) {
+			if (formData.website?.includes("http")) {
+				const userData = {
+					...currUser,
+					...formData,
+				};
+				handleUserEdit(userData, encodedToken, dispatch, toast);
+				setOpenEditModal(false);
+			} else {
+				alert("not a valid url");
+			}
+		} else {
 			const userData = {
 				...currUser,
 				...formData,
 			};
 			handleUserEdit(userData, encodedToken, dispatch, toast);
 			setOpenEditModal(false);
-		} else {
-			alert("not a valid url");
 		}
 	}
 	return (
