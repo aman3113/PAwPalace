@@ -85,7 +85,14 @@ const HomePage = () => {
 					/>
 				</Link>
 				<div
-					onClick={() => dispatch(handlePostModal())}
+					onClick={() => {
+						dispatch(handlePostModal());
+						setFormData({
+							text: "",
+							image: "",
+							tags: "",
+						});
+					}}
 					className="flex gap-3 w-[90%] items-center justify-between"
 				>
 					<input
@@ -150,7 +157,16 @@ const HomePage = () => {
 
 					<ModalFooter>
 						<label className="mr-auto cursor-pointer">
-							<FaRegImage size={25} />
+							<div className="flex items-center gap-2">
+								<FaRegImage size={25} />
+								{formData.image && (
+									<img
+										src={formData.image}
+										alt=""
+										className="w-[30px] h-[30px]"
+									/>
+								)}
+							</div>
 							<input
 								type="file"
 								className="hidden"
