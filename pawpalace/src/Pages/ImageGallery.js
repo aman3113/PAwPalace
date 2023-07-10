@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 
 const ImageGallery = () => {
 	const [imageArr, setImageArr] = useState([]);
-	const [removedImg, setRemovedImg] = useState([]);
 	const scrollableRef = useRef(null);
 
 	const collections = 1270951;
@@ -17,7 +16,6 @@ const ImageGallery = () => {
 
 	if (imageArr.length > 200) {
 		setImageArr((prev) => prev.slice(60));
-		setRemovedImg((prev) => [...prev, ...imageArr.slice(0, 25)]);
 	}
 
 	function removeDogImages() {
@@ -26,15 +24,7 @@ const ImageGallery = () => {
 		if (element) {
 			const { scrollTop, scrollHeight, clientHeight } = element;
 
-			// if (scrollTop === 0) {
-			// 	// console.log("removed", removedImg);
-			// 	// console.log("imageArr", imageArr);
-
-			// 	setImageArr((prev) => [...removedImg, ...prev].slice(0, 50));
-			// 	// setRemovedImg([]);
-			// }
-
-			if (scrollTop + clientHeight + 1 >= scrollHeight) {
+			if (scrollTop + clientHeight + 2 >= scrollHeight) {
 				getDogImages();
 			}
 		}
@@ -43,8 +33,6 @@ const ImageGallery = () => {
 	useEffect(() => {
 		getDogImages();
 	}, []);
-
-	// console.log("imageArr", imageArr.length);
 
 	useEffect(() => {
 		const condition = scrollableRef.current;

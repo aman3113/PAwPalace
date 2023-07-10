@@ -10,6 +10,7 @@ import {
 	ModalCloseButton,
 	Button,
 	Avatar,
+	useMediaQuery,
 } from "@chakra-ui/react";
 import { IoMdAddCircle } from "react-icons/io";
 import { FaRegImage } from "react-icons/fa";
@@ -23,6 +24,8 @@ const HomePage = () => {
 	const { allPosts, openPostModal } = useSelector((store) => store.post);
 	const { userDetail, encodedToken } = useSelector((store) => store.user);
 	const dispatch = useDispatch();
+	const [isSmallerScreen] = useMediaQuery("(max-width: 900px)");
+	const avatarSize = isSmallerScreen ? "sm" : "md";
 
 	const [formData, setFormData] = useState({
 		text: "",
@@ -79,7 +82,7 @@ const HomePage = () => {
 			<div className="flex gap-3 items-center justify-between w-full border border-black p-3 cursor-pointer mb-3">
 				<Link to={`/app/profile/${userDetail._id}`} className="w-[10%]">
 					<Avatar
-						size="md"
+						size={avatarSize}
 						name={userDetail.firstName}
 						src={userDetail.picture}
 					/>

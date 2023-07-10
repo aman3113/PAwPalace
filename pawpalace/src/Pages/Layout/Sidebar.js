@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { AiFillCompass, AiFillHome } from "react-icons/ai";
 import { IoMdAddCircle } from "react-icons/io";
 import { FiLogOut } from "react-icons/fi";
@@ -8,8 +8,20 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getToken, getUser } from "../../Redux/UserSlice";
 import { handlePostModal } from "../../Redux/PostSlice";
+import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	Button,
+	Center,
+} from "@chakra-ui/react";
 
 const Sidebar = () => {
+	const [openModal, setOpenModal] = useState(false);
 	const { userDetail } = useSelector((store) => store.user);
 	const dispatch = useDispatch();
 	const location = useLocation();
@@ -59,7 +71,7 @@ const Sidebar = () => {
 					<p className="text-lg hidden lg:block">Pets Gallery</p>
 				</NavLink>
 				<div
-					onClick={handleLogout}
+					onClick={() => setOpenModal(true)}
 					className="flex items-center gap-2 cursor-pointer"
 				>
 					<FiLogOut size={25} />
@@ -77,6 +89,33 @@ const Sidebar = () => {
 					<p className="text-lg">Profile</p>
 				</NavLink>
 			</div>
+			<Modal
+				isOpen={openModal}
+				onClose={() => setOpenModal(false)}
+				size={"xs"}
+				isCentered
+			>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalCloseButton />
+					<ModalBody fontWeight={600} textAlign="center" mt={10}>
+						Are you sure want to Exit?
+					</ModalBody>
+
+					<ModalFooter justifyContent="center">
+						<Button
+							colorScheme="blue"
+							mr={3}
+							onClick={() => setOpenModal(false)}
+						>
+							No
+						</Button>
+						<Button colorScheme="pink" onClick={handleLogout}>
+							Yes
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
 		</div>
 	);
 };
