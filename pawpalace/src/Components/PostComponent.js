@@ -155,7 +155,7 @@ const PostComponent = ({ postData }) => {
 						/>
 					)}
 				</div>
-				<div className="flex gap-2">
+				<div className="flex w-full flex-wrap gap-2">
 					{postData.tags &&
 						postData.tags?.map((tag, idx) => (
 							<div
@@ -223,9 +223,13 @@ const PostComponent = ({ postData }) => {
 					<TbShare2 size={22} />
 				</div>
 			</div>
-			<Modal isOpen={editPostModal} onClose={() => setEditPostModal(false)}>
+			<Modal
+				isOpen={editPostModal}
+				onClose={() => setEditPostModal(false)}
+				isCentered
+			>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent margin={2}>
 					<ModalHeader>Post Something</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
@@ -238,7 +242,7 @@ const PostComponent = ({ postData }) => {
 								placeholder="Write down your thoughts."
 								className="border p-1  rounded-md"
 							/>
-							<label>
+							<label className="font-semibold">
 								Tags:
 								<input
 									type="text"
@@ -250,9 +254,12 @@ const PostComponent = ({ postData }) => {
 									className="border p-1 ml-2 rounded-md"
 								/>
 							</label>
-							<div className="flex text-sm gap-1">
+							<div className="flex w-full flex-wrap text-sm gap-1">
 								{tagsArr?.map((tag, idx) => (
-									<div key={idx}>
+									<div
+										className="bg-gray-400 px-1 pb-1 rounded-md mr-1"
+										key={idx}
+									>
 										{tag}
 										<span
 											className="cursor-pointer"

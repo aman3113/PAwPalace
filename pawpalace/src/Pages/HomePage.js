@@ -115,9 +115,13 @@ const HomePage = () => {
 			<p className="text-gray-600 text-center p-4">
 				Follow Others to see their posts.
 			</p>
-			<Modal isOpen={openPostModal} onClose={() => dispatch(handlePostModal())}>
+			<Modal
+				isOpen={openPostModal}
+				onClose={() => dispatch(handlePostModal())}
+				isCentered
+			>
 				<ModalOverlay />
-				<ModalContent>
+				<ModalContent margin={2}>
 					<ModalHeader>Post Something</ModalHeader>
 					<ModalCloseButton />
 					<ModalBody>
@@ -130,7 +134,7 @@ const HomePage = () => {
 								placeholder="Write down your thoughts."
 								className="border p-1  rounded-md"
 							/>
-							<label>
+							<label className="font-semibold">
 								Tags:
 								<input
 									type="text"
@@ -142,12 +146,15 @@ const HomePage = () => {
 									className="border p-1 ml-2 rounded-md"
 								/>
 							</label>
-							<div className="flex text-sm gap-1">
+							<div className="flex w-full flex-wrap text-sm gap-1 ">
 								{tagsArr?.map((tag, idx) => (
-									<div key={idx}>
+									<div
+										className="bg-gray-400 px-1 pb-1 rounded-md mr-1"
+										key={idx}
+									>
 										{tag}
 										<span
-											className="cursor-pointer"
+											className="cursor-pointer text-base "
 											onClick={() => deleteTag(idx)}
 										>
 											×
